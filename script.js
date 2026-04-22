@@ -1,60 +1,51 @@
-// CONFIGURACIÓN DEL CATÁLOGO
+// CATÁLOGO DE PRODUCTOS
 const productos = [
     {
         id: 1,
-        nombre: "Ajuar Recién Nacido 'Cielo'",
+        nombre: "Ajuar Recién Nacido Algodón",
         precio: 195,
-        categoria: "Recién Nacido",
-        // Reemplaza TU_ID_DE_DRIVE por el ID real de tu foto
-        foto: "https://lh3.googleusercontent.com/d/TU_ID_DE_DRIVE_1"
+        categoria: "RECIÉN NACIDO",
+        // REEMPLAZA EL ID POR EL DE TU DRIVE
+        foto: "https://lh3.googleusercontent.com/d/TU_ID_AQUÍ"
     },
     {
         id: 2,
         nombre: "Manta Nube Tarijeña",
         precio: 250,
-        categoria: "Accesorios",
-        foto: "https://lh3.googleusercontent.com/d/TU_ID_DE_DRIVE_2"
+        categoria: "ACCESORIOS",
+        foto: "https://lh3.googleusercontent.com/d/OTRO_ID_AQUÍ"
     },
     {
         id: 3,
         nombre: "Jersey Trenzado Lana Soft",
         precio: 145,
-        categoria: "Niño",
-        foto: "https://lh3.googleusercontent.com/d/TU_ID_DE_DRIVE_3"
-    },
-    {
-        id: 4,
-        nombre: "Vestido Calado Primor",
-        precio: 180,
-        categoria: "Niña",
-        foto: "https://lh3.googleusercontent.com/d/TU_ID_DE_DRIVE_4"
+        categoria: "BEBÉ NIÑO",
+        foto: "https://lh3.googleusercontent.com/d/ID_TRES"
     }
 ];
 
 let carrito = [];
 
-// INICIALIZAR TIENDA
-function init() {
+function cargarTienda() {
     const grid = document.getElementById('product-grid');
-    if(grid) {
-        grid.innerHTML = productos.map(p => `
-            <div class="product-card" onclick="addToCart(${p.id})">
-                <img src="${p.foto}" alt="${p.nombre}" onerror="this.src='https://via.placeholder.com/400x500?text=Cargando+Tejido...'">
-                <div class="product-info">
-                    <p style="font-size: 9px; color: #aaa; letter-spacing: 1px;">${p.categoria}</p>
-                    <h3>${p.nombre}</h3>
-                    <div class="price">Bs. ${p.precio}</div>
-                </div>
+    if(!grid) return;
+
+    grid.innerHTML = productos.map(p => `
+        <div class="product-card" onclick="agregarAlCarrito(${p.id})">
+            <img src="${p.foto}" alt="${p.nombre}" onerror="this.src='https://via.placeholder.com/400x500?text=Cargando+Imagen...'">
+            <div class="product-info">
+                <p style="font-size: 10px; color: #999; letter-spacing: 1px;">${p.categoria}</p>
+                <h3>${p.nombre}</h3>
+                <div class="price">Bs ${p.precio}</div>
             </div>
-        `).join('');
-    }
+        </div>
+    `).join('');
 }
 
-// LÓGICA DEL CARRITO
-function addToCart(id) {
+function agregarAlCarrito(id) {
     const p = productos.find(x => x.id === id);
     carrito.push(p);
-    updateCartUI();
+    actualizarCarrito();
     document.getElementById('cart-sidebar').classList.add('active');
 }
 
@@ -62,40 +53,37 @@ function toggleCart() {
     document.getElementById('cart-sidebar').classList.toggle('active');
 }
 
-function updateCartUI() {
+function actualizarCarrito() {
     document.getElementById('cart-count').innerText = carrito.length;
-    const itemsContenedor = document.getElementById('cart-items');
+    const body = document.getElementById('cart-items');
     
-    itemsContenedor.innerHTML = carrito.map((item, index) => `
-        <div style="display:flex; justify-content:space-between; margin-bottom:20px; align-items:center;">
-            <img src="${item.foto}" style="width:60px; height:70px; object-fit:cover; border-radius:4px;">
+    document.getElementById('cart-items').innerHTML = carrito.map((item, index) => `
+        <div style="display:flex; margin-bottom:20px; align-items:center;">
+            <img src="${item.foto}" style="width:60px; height:80px; object-fit:cover; border-radius:4px;">
             <div style="flex-grow:1; padding-left:15px;">
-                <h4 style="font-size:11px; margin:0;">${item.nombre}</h4>
-                <p style="font-size:11px; font-weight:bold;">Bs. ${item.precio}</p>
+                <h4 style="font-size:12px;">${item.nombre}</h4>
+                <p style="font-weight:bold; font-size:13px;">Bs ${item.precio}</p>
             </div>
-            <button onclick="removeItem(${index})" style="background:none; border:none; color:red; cursor:pointer;">✕</button>
+            <button onclick="eliminarDelCarrito(${index})" style="background:none; border:none; color:red; cursor:pointer;">✕</button>
         </div>
     `).join('');
-    
-    const total = carrito.reduce((sum, item) => sum + item.precio, 0);
-    document.getElementById('cart-total').innerText = `Bs. ${total}`;
+
+    const total = carrito.reduce((sum, i) => sum + i.precio, 0);
+    document.getElementById('cart-total').innerText = `Bs ${total}`;
 }
 
-function removeItem(index) {
+function eliminarDelCarrito(index) {
     carrito.splice(index, 1);
-    updateCartUI();
+    actualizarCarrito();
 }
 
-function checkout() {
+function finalizarCompra() {
     if(carrito.length === 0) return alert("Tu bolsa está vacía");
-    
     const total = document.getElementById('cart-total').innerText;
     const lista = carrito.map(i => i.nombre).join(", ");
     
-    const telefono = "591XXXXXXXX"; // <--- PON TU NÚMERO AQUÍ
-    const mensaje = `¡Hola TommyStyle! He visto tu catálogo web y quiero pedir: ${lista}. El total es ${total}. ¿Cómo coordinamos la entrega en Tarija?`;
-    
-    window.open(`https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`, '_blank');
+    const msj = `¡Hola TommyStyle! He visto tu catálogo web y quiero pedir: ${lista}. Total: ${total}. ¿Me dan información para el envío?`;
+    window.open(`https://wa.me/591XXXXXXXX?text=${encodeURIComponent(msj)}`);
 }
 
-window.onload = init;
+window.onload = cargarTienda;
