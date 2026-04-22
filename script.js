@@ -1,223 +1,110 @@
-/**
- * TOMMYSTYLE CORE ENGINE v4.0
- * Developed for High-Performance E-commerce
- */
+/* TOMMYSTYLE CORE ENGINE v5.0 */
 
-"use strict";
-
-// 1. DATA MASTER (Base de datos local expandida)
-const PRODUCT_DATABASE = [
-    {
-        id: "TS-001",
-        name: "Ajuar Recién Nacido 'Nube Celeste'",
-        price: 245.00,
-        category: "RECIÉN NACIDO",
-        tag: "Bestseller",
-        image: "https://images.unsplash.com/photo-1522771917714-d73b52b75243?w=500",
-        description: "Tejido artesanal ultra suave.",
-        rating: 5
-    },
-    {
-        id: "TS-002",
-        name: "Manta Punto Ochos Premium",
-        price: 320.00,
-        category: "RECIÉN NACIDO",
-        tag: "Lujo",
-        image: "https://images.unsplash.com/photo-1544126592-807daa2b565b?w=500",
-        description: "100% fibra natural hipoalergénica.",
-        rating: 4
-    },
-    {
-        id: "TS-003",
-        name: "Vestido Calado 'Rosa Chura'",
-        price: 195.00,
-        category: "NIÑAS",
-        tag: "Tendencia",
-        image: "https://images.unsplash.com/photo-1515488764276-beab7607c1e6?w=500",
-        description: "Inspirado en la primavera tarijeña.",
-        rating: 5
-    },
-    {
-        id: "TS-004",
-        name: "Jersey Marinero con Pompones",
-        price: 180.00,
-        category: "NIÑOS",
-        tag: "Clásico",
-        image: "https://images.unsplash.com/photo-1522771917714-d73b52b75243?w=500",
-        description: "Estilo atemporal para el pequeño.",
-        rating: 4
-    }
-    // Puedes agregar hasta 100 productos siguiendo esta estructura
+// 1. BASE DE DATOS MAESTRA
+const PRODUCT_DATA = [
+    { id: 101, cat: "RECIÉN NACIDO", name: "Ajuar 'Nube de Tarija'", price: 195.00, img: "https://images.unsplash.com/photo-1522771917714-d73b52b75243?w=600" },
+    { id: 102, cat: "NIÑAS", name: "Vestido Calado Gala", price: 240.00, img: "https://images.unsplash.com/photo-1515488764276-beab7607c1e6?w=600" },
+    { id: 103, cat: "NIÑOS", name: "Jersey Marinero Soft", price: 185.00, img: "https://images.unsplash.com/photo-1544126592-807daa2b565b?w=600" },
+    { id: 104, cat: "AJUARES", name: "Set Bienvenida Lujo", price: 350.00, img: "https://images.unsplash.com/photo-1607345366928-199e649ce44e?w=600" },
+    { id: 105, cat: "RECIÉN NACIDO", name: "Manta Punto Ochos", price: 150.00, img: "https://images.unsplash.com/photo-1522771917714-d73b52b75243?w=600" }
 ];
 
-// 2. STATE MANAGEMENT
-let state = {
-    cart: JSON.parse(localStorage.getItem('tommyCart')) || [],
-    filteredProducts: [...PRODUCT_DATABASE],
-    currentCategory: 'TODOS',
-    isCartOpen: false
-};
+let cartState = JSON.parse(localStorage.getItem('ts_cart')) || [];
 
-// 3. INITIALIZATION
-document.addEventListener('DOMContentLoaded', () => {
-    // Simulamos carga para el preloader
-    setTimeout(() => {
-        document.getElementById('preloader').style.opacity = '0';
-        setTimeout(() => document.getElementById('preloader').remove(), 800);
-        document.body.classList.remove('loading');
-    }, 1500);
-
-    renderCatalog();
-    updateUI();
-    initAnnouncements();
-});
-
-// 4. RENDERING ENGINE
-function renderCatalog() {
-    const catalogContainer = document.getElementById('mainCatalog');
-    const noResults = document.getElementById('noResults');
-    
-    if (state.filteredProducts.length === 0) {
-        catalogContainer.innerHTML = '';
-        noResults.style.display = 'block';
-        return;
-    }
-
-    noResults.style.display = 'none';
-    catalogContainer.innerHTML = state.filteredProducts.map(product => `
-        <article class="product-card-v4" data-aos="fade-up">
-            <div class="image-container">
-                <img src="${product.image}" alt="${product.name}" loading="lazy">
-                <div class="hover-overlay">
-                    <button class="quick-add-btn" onclick="addToCart('${product.id}')">AÑADIR A LA BOLSA</button>
-                </div>
+// 2. RENDERIZADO DE TIENDA
+function initShop(items) {
+    const grid = document.getElementById('productGrid');
+    grid.innerHTML = items.map(p => `
+        <article class="p-card-v3">
+            <div class="img-box">
+                <img src="${p.img}" alt="${p.name}" loading="lazy">
             </div>
-            <div class="product-details">
-                <span class="cat">${product.category}</span>
-                <h3>${product.name}</h3>
-                <div class="price">Bs. ${product.price.toFixed(2)}</div>
-                <div class="stars">${'★'.repeat(product.rating)}</div>
+            <div class="card-info">
+                <p style="color:var(--gold); font-size:0.7rem; font-weight:800; letter-spacing:2px;">${p.cat}</p>
+                <h3>${p.name}</h3>
+                <div class="price">Bs ${p.price.toFixed(2)}</div>
+                <button class="btn-add-v3" onclick="addToCart(${p.id})">AÑADIR A LA BOLSA</button>
             </div>
         </article>
     `).join('');
 }
 
-// 5. SEARCH & FILTER LOGIC
-function realTimeSearch() {
-    const query = document.getElementById('globalSearch').value.toLowerCase();
-    state.filteredProducts = PRODUCT_DATABASE.filter(p => 
-        p.name.toLowerCase().includes(query) || 
-        p.category.toLowerCase().includes(query)
-    );
-    renderCatalog();
-}
-
-function filterBy(category) {
-    state.currentCategory = category;
-    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-    event.target.classList.add('active');
-    
-    if (category === 'TODOS') {
-        state.filteredProducts = [...PRODUCT_DATABASE];
-    } else {
-        state.filteredProducts = PRODUCT_DATABASE.filter(p => p.category === category);
-    }
-    
-    document.getElementById('currentCategory').innerText = category;
-    renderCatalog();
-}
-
-// 6. CART CORE
+// 3. LÓGICA DEL CARRITO
 function addToCart(id) {
-    const product = PRODUCT_DATABASE.find(p => p.id === id);
-    const existing = state.cart.find(item => item.id === id);
+    const product = PRODUCT_DATA.find(x => x.id === id);
+    cartState.push(product);
+    localStorage.setItem('ts_cart', JSON.stringify(cartState));
+    updateCartUI();
+    handleCartUI(true); // Abre el carrito
+}
 
-    if (existing) {
-        existing.qty++;
+function updateCartUI() {
+    const badge = document.getElementById('cart-badge');
+    const itemsList = document.getElementById('cartItems');
+    const totalEl = document.getElementById('cartTotal');
+    
+    badge.innerText = cartState.length;
+    
+    if (cartState.length === 0) {
+        itemsList.innerHTML = `<p style="text-align:center; margin-top:50px;">Tu bolsa está vacía.</p>`;
     } else {
-        state.cart.push({...product, qty: 1});
-    }
-
-    saveCart();
-    updateUI();
-    toggleCartSide(true); // Abrir carrito al añadir
-}
-
-function removeItem(index) {
-    state.cart.splice(index, 1);
-    saveCart();
-    updateUI();
-}
-
-function saveCart() {
-    localStorage.setItem('tommyCart', JSON.stringify(state.cart));
-}
-
-function updateUI() {
-    const badge = document.getElementById('cart-counter-badge');
-    const content = document.getElementById('cartContent');
-    const subtotalEl = document.getElementById('subtotalPrice');
-    const totalEl = document.getElementById('totalPriceFinal');
-
-    // Update Badge
-    const count = state.cart.reduce((acc, item) => acc + item.qty, 0);
-    badge.innerText = count;
-
-    // Update Sidebar
-    if (state.cart.length === 0) {
-        content.innerHTML = '<div class="empty-cart-msg">Tu bolsa está vacía actualmente.</div>';
-    } else {
-        content.innerHTML = state.cart.map((item, index) => `
-            <div class="cart-item-row">
-                <div class="item-img"><img src="${item.image}" width="50"></div>
-                <div class="item-info">
-                    <h5>${item.name}</h5>
-                    <p>${item.qty} x Bs. ${item.price}</p>
+        itemsList.innerHTML = cartState.map((p, index) => `
+            <div style="display:flex; align-items:center; margin-bottom:20px; padding-bottom:15px; border-bottom:1px solid #eee;">
+                <img src="${p.img}" style="width:60px; height:60px; object-fit:cover; border-radius:10px;">
+                <div style="flex:1; padding-left:15px;">
+                    <h4 style="font-size:0.8rem;">${p.name}</h4>
+                    <p style="font-weight:bold; color:var(--gold);">Bs ${p.price}</p>
                 </div>
-                <button class="remove-item" onclick="removeItem(${index})">✕</button>
+                <button onclick="removeFromCart(${index})" style="background:none; border:none; color:red; cursor:pointer;">✕</button>
             </div>
         `).join('');
     }
-
-    // Calculations
-    const subtotal = state.cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
-    subtotalEl.innerText = `Bs. ${subtotal.toFixed(2)}`;
-    totalEl.innerText = `Bs. ${subtotal.toFixed(2)}`;
-}
-
-function toggleCartSide(forceOpen = false) {
-    const sidebar = document.getElementById('sideCart');
-    if (forceOpen) {
-        sidebar.classList.add('active');
-    } else {
-        sidebar.classList.toggle('active');
-    }
-}
-
-// 7. WHATSAPP ENGINE
-function processOrder() {
-    if (state.cart.length === 0) return alert("Tu bolsa está vacía.");
     
-    let message = "¡Hola TommyStyle! ✨\nQuiero realizar un pedido desde la web:\n\n";
-    state.cart.forEach(item => {
-        message += `• ${item.qty} x ${item.name} (Bs. ${item.price})\n`;
-    });
+    const total = cartState.reduce((sum, item) => sum + item.price, 0);
+    totalEl.innerText = `Bs ${total.toFixed(2)}`;
+}
+
+function removeFromCart(index) {
+    cartState.splice(index, 1);
+    localStorage.setItem('ts_cart', JSON.stringify(cartState));
+    updateCartUI();
+}
+
+// 4. INTERFAZ Y NAVEGACIÓN
+function handleCartUI(forceOpen = false) {
+    const drawer = document.getElementById('cartDrawer');
+    if (forceOpen) drawer.classList.add('active');
+    else drawer.classList.toggle('active');
+}
+
+function filterBy(cat, btn) {
+    document.querySelectorAll('.f-pill').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filtered = cat === 'TODOS' ? PRODUCT_DATA : PRODUCT_DATA.filter(p => p.cat === cat);
+    initShop(filtered);
+}
+
+function smartSearch() {
+    const term = document.getElementById('mainSearch').value.toLowerCase();
+    const results = PRODUCT_DATA.filter(p => p.name.toLowerCase().includes(term));
+    initShop(results);
+}
+
+function checkoutWhatsApp() {
+    if (cartState.length === 0) return alert("Bolsa vacía");
+    const items = cartState.map(p => p.name).join(", ");
+    const total = document.getElementById('cartTotal').innerText;
+    const msg = `¡Hola TommyStyle! ✨ Quisiera pedir los siguientes tejidos: ${items}. Total: ${total}. Tarija, Bolivia.`;
+    window.open(`https://wa.me/591XXXXXXXX?text=${encodeURIComponent(msg)}`);
+}
+
+// 5. INICIALIZACIÓN
+window.onload = () => {
+    setTimeout(() => {
+        document.getElementById('master-loader').style.display = 'none';
+        document.body.classList.remove('loading-state');
+    }, 2000);
     
-    const total = state.cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
-    message += `\n💰 *Total Final: Bs. ${total.toFixed(2)}*\n`;
-    message += `\n📍 Ciudad: Tarija\n💬 ¿Me pueden confirmar disponibilidad?`;
-
-    const encoded = encodeURIComponent(message);
-    window.open(`https://wa.me/591XXXXXXXX?text=${encoded}`, '_blank');
-}
-
-// 8. ANIMATIONS & UI EXTRAS
-function initAnnouncements() {
-    const slides = document.querySelectorAll('.announcement-slide');
-    let current = 0;
-    setInterval(() => {
-        slides[current].style.display = 'none';
-        current = (current + 1) % slides.length;
-        slides[current].style.display = 'block';
-    }, 4000);
-}
+    initShop(PRODUCT_DATA);
+    updateCartUI();
+};
