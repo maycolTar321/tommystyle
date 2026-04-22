@@ -2,122 +2,73 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>TommyStyle | Alta Costura Infantil Tarija</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;600;800&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TomyStyle | Ropa de bebé con amor</title>
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
-<body class="loading-state">
-
-    <div id="master-loader" class="master-loader">
-        <div class="loader-inner">
-            <h1 class="loader-logo">TOMMYSTYLE</h1>
-            <div class="progress-bar"><div class="progress-fill"></div></div>
-            <p>Preparando exclusividad...</p>
-        </div>
-    </div>
-
-    <div class="top-banner">
-        <div class="banner-slider">
-            <span>✨ ENVÍOS A TODA BOLIVIA DESDE LA CHURA TARIJA</span>
-            <span>🧶 TEJIDOS A MÁQUINA MANUAL CON LANA HIPOALERGÉNICA</span>
-        </div>
-    </div>
-
-    <nav class="main-nav" id="mainNav">
-        <div class="nav-container">
-            <div class="nav-left">
-                <button class="burger-menu" id="burgerBtn" onclick="toggleMobileMenu()">
-                    <span></span><span></span><span></span>
-                </button>
-                <div class="search-box-v2">
-                    <input type="text" id="mainSearch" placeholder="¿Qué buscas para tu bebé?..." onkeyup="smartSearch()">
-                    <span class="search-icon">🔍</span>
-                </div>
-            </div>
-
-            <div class="nav-center">
-                <a href="index.html" class="brand-logo">
-                    <span class="logo-top">TOMMYSTYLE</span>
-                    <span class="logo-bot">BOUTIQUE ARTESANAL</span>
-                </a>
-            </div>
-
-            <div class="nav-right">
-                <div class="user-tools">
-                    <span class="tool-icon desktop-only">👤</span>
-                    <div class="cart-trigger" onclick="handleCartUI()">
-                        <span class="tool-icon">🛒</span>
-                        <span id="cart-badge" class="badge">0</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="mobile-overlay" id="mobileMenu">
-            <ul class="nav-links-v2">
-                <li><a href="#inicio" onclick="toggleMobileMenu()">INICIO</a></li>
-                <li><a href="#coleccion" onclick="toggleMobileMenu()">COLECCIONES</a></li>
-                <li><a href="#nosotros" onclick="toggleMobileMenu()">NUESTRA HISTORIA</a></li>
-                <li><a href="#contacto" onclick="toggleMobileMenu()">CONTACTO</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <header class="hero-v3" id="inicio">
-        <div class="hero-bg">
-            <img src="https://images.unsplash.com/photo-1522771917714-d73b52b75243?q=80" alt="Tejido Tarijeño">
-        </div>
-        <div class="hero-glass">
-            <div class="hero-text-box">
-                <span class="kicker">CALIDAD DE EXPORTACIÓN</span>
-                <h1>Hecho a mano,<br><em>con el alma.</em></h1>
-                <p>Descubre la suavidad incomparable de nuestros ajuares y mantas, tejidos punto por punto en máquinas manuales tradicionales.</p>
-                <div class="hero-actions">
-                    <a href="#coleccion" class="btn-gold">VER CATÁLOGO</a>
-                    <a href="#nosotros" class="btn-glass">SABER MÁS</a>
-                </div>
-            </div>
-        </div>
-        <div class="scroll-down"></div>
+<body>
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="logo">TOMMYSTYLE</div>
+        <nav>
+            <a href="#inicio">Inicio</a>
+            <a href="#productos">Productos</a>
+            <a href="#nosotros">Nosotros</a>
+            <a href="#contacto">Contacto</a>
+        </nav>
     </header>
 
-    <section class="filter-section">
-        <div class="filter-container">
-            <button class="f-pill active" onclick="filterBy('TODOS', this)">VER TODO</button>
-            <button class="f-pill" onclick="filterBy('RECIÉN NACIDO', this)">RECIÉN NACIDO</button>
-            <button class="f-pill" onclick="filterBy('NIÑAS', this)">NIÑAS</button>
-            <button class="f-pill" onclick="filterBy('NIÑOS', this)">NIÑOS</button>
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="hero-text">
+            <h1>Ropa de bebé tejida con amor</h1>
+            <p>Lo mejor para tu bebé, hecho a mano con cariño</p>
+            <a href="#productos" class="btn-cta">Ver productos</a>
         </div>
     </section>
 
-    <main class="catalog-v3" id="coleccion">
-        <div class="section-header">
-            <h2>Nuestra Selección Premium</h2>
-            <div class="line"></div>
-        </div>
-        <div class="product-grid-v3" id="productGrid">
+    <!-- Productos -->
+    <section id="productos" class="productos">
+        <h2>Productos Destacados</h2>
+        <div class="product-container">
+            <div class="product-card">
+                <img src="https://via.placeholder.com/250" alt="Producto 1">
+                <p class="product-name">Chompa de bebé rosa</p>
+                <p class="price">$29.99</p>
+                <button class="btn-buy">Comprar</button>
             </div>
-    </main>
+            <div class="product-card">
+                <img src="https://via.placeholder.com/250" alt="Producto 2">
+                <p class="product-name">Chompa de bebé azul</p>
+                <p class="price">$29.99</p>
+                <button class="btn-buy">Comprar</button>
+            </div>
+        </div>
+    </section>
 
-    <aside id="cartDrawer" class="cart-drawer">
-        <div class="drawer-header">
-            <h3>MI BOLSA</h3>
-            <button class="close-drawer" onclick="handleCartUI()">✕</button>
-        </div>
-        <div id="cartItems" class="drawer-body">
-            </div>
-        <div class="drawer-footer">
-            <div class="total-box">
-                <span>TOTAL ESTIMADO:</span>
-                <span id="cartTotal">Bs 0</span>
-            </div>
-            <button class="btn-checkout-v3" onclick="checkoutWhatsApp()">
-                FINALIZAR PEDIDO POR WHATSAPP
-            </button>
-        </div>
-    </aside>
+    <!-- Nosotros -->
+    <section id="nosotros" class="about-us">
+        <h2>Sobre Nosotros</h2>
+        <p>TomyStyle es una marca que se dedica a vestir con ternura y calidad a los más pequeños. Cada prenda está tejida a mano, con hilos suaves y materiales de alta calidad para asegurar la comodidad y el cuidado del bebé.</p>
+    </section>
 
-    <script src="script.js"></script>
+    <!-- Contacto -->
+    <section id="contacto" class="contact">
+        <h2>Contáctanos</h2>
+        <form action="#" method="POST">
+            <input type="text" placeholder="Tu nombre" required>
+            <input type="email" placeholder="Tu correo" required>
+            <textarea placeholder="Tu mensaje" required></textarea>
+            <button type="submit" class="btn-send">Enviar mensaje</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 TomyStyle | Todos los derechos reservados.</p>
+    </footer>
 </body>
 </html>
+                 
+     
