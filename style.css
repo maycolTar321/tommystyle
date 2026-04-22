@@ -1,46 +1,36 @@
 :root {
-    --primary: #1a1a1a;
-    --accent: #d4a373;
-    --bg-light: #f9f9f9;
+    --celeste-claro: #e3f2fd;
+    --rosa-pastel: #fce4ec;
+    --dorado: #c5a059;
+    --gris-suave: #9e9e9e;
+    --fuente-titulo: 'Playfair Display', serif;
 }
 
-body { font-family: 'Montserrat', sans-serif; margin: 0; color: #333; scroll-behavior: smooth; }
+body { font-family: 'Montserrat', sans-serif; background-color: #fafafa; margin: 0; color: #444; }
 
-/* Announcement */
-.announcement-bar { background: var(--primary); color: #fff; text-align: center; font-size: 11px; padding: 10px; letter-spacing: 2px; }
+/* Navegación Estilo Minimalista */
+.navbar { background: white; padding: 25px 0; text-align: center; border-bottom: 1px solid #f0f0f0; position: sticky; top: 0; z-index: 1000; }
+.logo-container h1 { font-family: var(--fuente-titulo); font-size: 32px; letter-spacing: 6px; margin: 0; color: #222; }
 
-/* Nav */
-.main-nav { background: #fff; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #eee; }
-.nav-top { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; }
-.logo a { font-family: 'Playfair Display', serif; font-size: 30px; text-decoration: none; color: #000; letter-spacing: 4px; }
-.nav-categories { list-style: none; display: flex; justify-content: center; padding: 10px 0; margin: 0; background: #fff; border-top: 1px solid #f4f4f4; }
-.nav-categories li { margin: 0 15px; }
-.nav-categories a { text-decoration: none; color: #666; font-size: 12px; font-weight: 600; transition: 0.3s; }
-.nav-categories a:hover { color: var(--accent); }
-
-/* Hero */
-.hero-section { 
-    height: 85vh; 
-    background: url('https://images.unsplash.com/photo-1522771917714-d73b52b75243?auto=format&fit=crop&w=1600') center/cover no-repeat;
+/* Banner Editorial */
+.hero { 
+    height: 60vh; 
+    background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url('https://images.unsplash.com/photo-1515488764276-beab7607c1e6?q=80') center/cover;
+    display: flex; align-items: center; justify-content: center; color: white; text-align: center;
 }
-.hero-overlay { background: rgba(255,255,255,0.2); height: 100%; display: flex; align-items: center; padding-left: 10%; }
-.hero-text { max-width: 500px; }
-.hero-text h1 { font-family: 'Playfair Display', serif; font-size: 55px; margin: 10px 0; }
-.btn-dark { background: #000; color: #fff; padding: 15px 40px; text-decoration: none; display: inline-block; letter-spacing: 2px; font-size: 13px; }
+.hero-box { background: rgba(255,255,255,0.9); padding: 40px; color: #222; max-width: 600px; }
+.hero-box h2 { font-family: var(--fuente-titulo); font-size: 38px; margin: 0; }
 
-/* Shop */
-.shop-container { padding: 60px 5%; }
-.title-center { text-align: center; font-family: 'Playfair Display', serif; font-size: 32px; margin-bottom: 40px; }
-.product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
-.product-card { cursor: pointer; transition: 0.3s; border-radius: 8px; overflow: hidden; }
-.product-card img { width: 100%; height: 350px; object-fit: cover; }
-.product-card:hover { transform: scale(1.02); }
+/* Catálogo */
+.shop-section { padding: 80px 10%; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; }
 
-/* Cart Sidebar */
-.cart-sidebar { position: fixed; right: -400px; top: 0; width: 350px; height: 100%; background: #fff; box-shadow: -10px 0 30px rgba(0,0,0,0.1); z-index: 2000; transition: 0.4s; padding: 25px; display: flex; flex-direction: column; }
-.cart-sidebar.active { right: 0; }
-.cart-header { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding-bottom: 15px; }
+.product-card { background: white; border-radius: 4px; overflow: hidden; transition: 0.3s; position: relative; }
+.product-card:hover { transform: translateY(-10px); }
+.product-card img { width: 100%; height: 400px; object-fit: cover; }
 
-/* About Section */
-.about-section { padding: 80px 15%; text-align: center; line-height: 1.8; }
-.about-section img { width: 100%; max-height: 400px; object-fit: cover; margin: 30px 0; border-radius: 10px; }
+.product-info { padding: 20px; text-align: center; }
+.product-info h3 { text-transform: uppercase; font-size: 14px; letter-spacing: 2px; margin-bottom: 10px; }
+.price { color: var(--dorado); font-weight: bold; font-size: 18px; }
+
+.btn-add { background: #222; color: white; padding: 12px; width: 100%; border: none; cursor: pointer; margin-top: 15px; font-size: 12px; letter-spacing: 1px; }
