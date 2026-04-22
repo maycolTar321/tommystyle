@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TommyStyle | Tienda Oficial</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="announcement-bar">ENVÍOS GRATIS EN TARIJA POR COMPRAS MAYORES A BS 250</div>
+
+    <nav class="main-nav">
+        <div class="nav-top">
+            <div class="search-bar">🔍 Buscar</div>
+            <div class="logo"><a href="index.html">TOMMYSTYLE</a></div>
+            <div class="nav-user-icons">
+                <a href="#">👤</a>
+                <div class="cart-trigger" onclick="toggleCart()">🛒 <span id="cart-count">0</span></div>
+            </div>
+        </div>
+        <ul class="nav-categories">
+            <li><a href="index.html">INICIO</a></li>
+            <li><a href="#productos">RECIÉN NACIDO</a></li>
+            <li><a href="#productos">NIÑOS</a></li>
+            <li><a href="#productos">NIÑAS</a></li>
+            <li><a href="nosotros.html">QUIÉNES SOMOS</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero-section">
+        <div class="hero-overlay">
+            <div class="hero-text">
+                <span class="subtitle">NUEVA COLECCIÓN</span>
+                <h1>SUAVIDAD QUE ABRAZA</h1>
+                <p>Tejidos artesanalmente a máquina manual con las mejores fibras.</p>
+                <a href="#productos" class="btn-dark">VER TODO</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="productos" class="shop-container">
+        <h2 class="title-center">Nuestros Recomendados</h2>
+        <div class="product-grid" id="product-grid"></div>
+    </section>
+
+    <div id="cart-sidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h3>BOLSA DE COMPRAS</h3>
+            <button onclick="toggleCart()" class="close-btn">&times;</button>
+        </div>
+        <div id="cart-items-list"></div>
+        <div class="cart-total-box">
+            <p>Total: <span id="total-price">Bs 0</span></p>
+            <button class="btn-checkout" onclick="checkout()">FINALIZAR COMPRA</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
