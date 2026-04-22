@@ -3,56 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TommyStyle | Tienda Oficial</title>
+    <title>TommyStyle | Boutique de Tejidos Artesanales</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="announcement-bar">ENVÍOS GRATIS EN TARIJA POR COMPRAS MAYORES A BS 250</div>
 
-    <nav class="main-nav">
-        <div class="nav-top">
-            <div class="search-bar">🔍 Buscar</div>
-            <div class="logo"><a href="index.html">TOMMYSTYLE</a></div>
-            <div class="nav-user-icons">
-                <a href="#">👤</a>
-                <div class="cart-trigger" onclick="toggleCart()">🛒 <span id="cart-count">0</span></div>
+    <div class="top-promo">
+        <p>TEJIDOS ÚNICOS A MÁQUINA MANUAL • ENVÍOS A TODA BOLIVIA DESDE TARIJA</p>
+    </div>
+
+    <nav class="navbar">
+        <div class="nav-main">
+            <div class="nav-left">
+                <button class="menu-btn">☰ MENÚ</button>
+            </div>
+            <div class="logo">
+                <a href="index.html">TOMMYSTYLE</a>
+            </div>
+            <div class="nav-right">
+                <span class="icon">🔍</span>
+                <div class="cart-wrapper" onclick="toggleCart()">
+                    <span class="icon">🛒</span>
+                    <span id="cart-count">0</span>
+                </div>
             </div>
         </div>
-        <ul class="nav-categories">
+        <ul class="nav-links">
             <li><a href="index.html">INICIO</a></li>
-            <li><a href="#productos">RECIÉN NACIDO</a></li>
-            <li><a href="#productos">NIÑOS</a></li>
-            <li><a href="#productos">NIÑAS</a></li>
-            <li><a href="nosotros.html">QUIÉNES SOMOS</a></li>
+            <li><a href="#">RECIÉN NACIDO</a></li>
+            <li><a href="#">BEBÉ NIÑA</a></li>
+            <li><a href="#">BEBÉ NIÑO</a></li>
+            <li><a href="nosotros.html">NUESTRA HISTORIA</a></li>
         </ul>
     </nav>
 
-    <header class="hero-section">
-        <div class="hero-overlay">
-            <div class="hero-text">
-                <span class="subtitle">NUEVA COLECCIÓN</span>
-                <h1>SUAVIDAD QUE ABRAZA</h1>
-                <p>Tejidos artesanalmente a máquina manual con las mejores fibras.</p>
-                <a href="#productos" class="btn-dark">VER TODO</a>
+    <header class="main-hero">
+        <div class="hero-content">
+            <span class="tag">NUEVA COLECCIÓN 2026</span>
+            <h1>Suavidad Artesanal</h1>
+            <p>Prendas tejidas punto por punto para la piel más delicada.</p>
+            <div class="hero-btns">
+                <a href="#catalogo" class="btn-dark">COMPRAR AHORA</a>
+                <a href="nosotros.html" class="btn-outline">VER PROCESO</a>
             </div>
         </div>
     </header>
 
-    <section id="productos" class="shop-container">
-        <h2 class="title-center">Nuestros Recomendados</h2>
-        <div class="product-grid" id="product-grid"></div>
+    <section class="benefits">
+        <div class="benefit-item">
+            <span>🧶</span>
+            <h4>Lana Premium</h4>
+            <p>Antialérgica y suave</p>
+        </div>
+        <div class="benefit-item">
+            <span>⚙️</span>
+            <h4>Tejido Manual</h4>
+            <p>Precisión técnica</p>
+        </div>
+        <div class="benefit-item">
+            <span>🇧🇴</span>
+            <h4>Hecho en Tarija</h4>
+            <p>Talento local</p>
+        </div>
     </section>
+
+    <main id="catalogo" class="shop-container">
+        <div class="section-header">
+            <h2>NUESTROS FAVORITOS</h2>
+            <p>Las prendas más queridas por nuestras mamás TommyStyle</p>
+        </div>
+        
+        <div class="product-grid" id="product-grid">
+            </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-col">
+                <h3>TOMMYSTYLE</h3>
+                <p>Moda infantil con alma artesanal desde el corazón de Tarija.</p>
+            </div>
+            <div class="footer-col">
+                <h4>AYUDA</h4>
+                <ul>
+                    <li>Guía de Tallas</li>
+                    <li>Cuidado de la Lana</li>
+                    <li>Envíos y Entregas</li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>CONTACTO</h4>
+                <p>📍 Tarija, Bolivia</p>
+                <p>📱 +591 XXXXXXXX</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 TommyStyle - Todos los derechos reservados.</p>
+        </div>
+    </footer>
 
     <div id="cart-sidebar" class="cart-sidebar">
         <div class="cart-header">
             <h3>BOLSA DE COMPRAS</h3>
-            <button onclick="toggleCart()" class="close-btn">&times;</button>
+            <span class="close-cart" onclick="toggleCart()">&times;</span>
         </div>
-        <div id="cart-items-list"></div>
-        <div class="cart-total-box">
-            <p>Total: <span id="total-price">Bs 0</span></p>
-            <button class="btn-checkout" onclick="checkout()">FINALIZAR COMPRA</button>
+        <div id="cart-items" class="cart-items"></div>
+        <div class="cart-footer">
+            <div class="total-row">
+                <span>Total Estimado:</span>
+                <span id="cart-total">Bs. 0</span>
+            </div>
+            <button class="btn-checkout" onclick="checkout()">FINALIZAR POR WHATSAPP</button>
         </div>
     </div>
 
