@@ -16,7 +16,7 @@
     <nav class="navbar">
         <div class="nav-main">
             <div class="nav-left">
-                <button class="menu-btn">☰ MENÚ</button>
+                <button class="menu-btn" onclick="toggleMenu()">☰ MENÚ</button>
             </div>
             <div class="logo">
                 <a href="index.html">TOMMYSTYLE</a>
@@ -29,92 +29,99 @@
                 </div>
             </div>
         </div>
-        <ul class="nav-links">
+        <ul class="nav-links" id="main-menu">
             <li><a href="index.html">INICIO</a></li>
-            <li><a href="#">RECIÉN NACIDO</a></li>
-            <li><a href="#">BEBÉ NIÑA</a></li>
-            <li><a href="#">BEBÉ NIÑO</a></li>
+            <li><a href="#catalogo">COLECCIÓN RECIÉN NACIDO</a></li>
+            <li><a href="#catalogo">BEBÉ NIÑA</a></li>
+            <li><a href="#catalogo">BEBÉ NIÑO</a></li>
             <li><a href="nosotros.html">NUESTRA HISTORIA</a></li>
         </ul>
     </nav>
 
     <header class="main-hero">
-        <div class="hero-content">
-            <span class="tag">NUEVA COLECCIÓN 2026</span>
-            <h1>Suavidad Artesanal</h1>
-            <p>Prendas tejidas punto por punto para la piel más delicada.</p>
-            <div class="hero-btns">
-                <a href="#catalogo" class="btn-dark">COMPRAR AHORA</a>
-                <a href="nosotros.html" class="btn-outline">VER PROCESO</a>
+        <div class="hero-overlay">
+            <div class="hero-content">
+                <span class="tag">CALIDAD ARTESANAL</span>
+                <h1>Hecho a mano, <br>pensado para ellos</h1>
+                <p>Descubre la suavidad de nuestros tejidos a máquina manual, creados con fibras naturales en el corazón de Tarija.</p>
+                <div class="hero-btns">
+                    <a href="#catalogo" class="btn-dark">VER COLECCIÓN</a>
+                    <a href="nosotros.html" class="btn-outline">NUESTRO PROCESO</a>
+                </div>
             </div>
         </div>
     </header>
 
-    <section class="benefits">
-        <div class="benefit-item">
-            <span>🧶</span>
-            <h4>Lana Premium</h4>
-            <p>Antialérgica y suave</p>
+    <section class="features">
+        <div class="feature-card">
+            <div class="f-icon">🧶</div>
+            <h3>Lana Antialérgica</h3>
+            <p>Seleccionamos las fibras más suaves para la piel del bebé.</p>
         </div>
-        <div class="benefit-item">
-            <span>⚙️</span>
-            <h4>Tejido Manual</h4>
-            <p>Precisión técnica</p>
+        <div class="feature-card">
+            <div class="f-icon">⚙️</div>
+            <h3>Máquina Manual</h3>
+            <p>Técnica tradicional que garantiza durabilidad y detalle.</p>
         </div>
-        <div class="benefit-item">
-            <span>🇧🇴</span>
-            <h4>Hecho en Tarija</h4>
-            <p>Talento local</p>
+        <div class="feature-card">
+            <div class="f-icon">🇧🇴</div>
+            <h3>Sello Tarijeño</h3>
+            <p>Cada prenda lleva el alma de nuestra tierra.</p>
         </div>
     </section>
 
     <main id="catalogo" class="shop-container">
-        <div class="section-header">
-            <h2>NUESTROS FAVORITOS</h2>
-            <p>Las prendas más queridas por nuestras mamás TommyStyle</p>
+        <div class="section-title">
+            <h2>LOS FAVORITOS DE MAMÁ</h2>
+            <div class="divider"></div>
         </div>
         
         <div class="product-grid" id="product-grid">
             </div>
     </main>
 
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-col">
+    <section class="testimonials">
+        <p class="quote">"La mantita de TommyStyle es lo más suave que ha tocado la piel de mi hijo. Calidad increíble."</p>
+        <p class="author">- Cliente de Tarija</p>
+    </section>
+
+    <footer class="main-footer">
+        <div class="footer-grid">
+            <div class="footer-about">
                 <h3>TOMMYSTYLE</h3>
-                <p>Moda infantil con alma artesanal desde el corazón de Tarija.</p>
+                <p>Especialistas en tejidos infantiles de alta calidad.</p>
             </div>
-            <div class="footer-col">
-                <h4>AYUDA</h4>
+            <div class="footer-links">
+                <h4>CLIENTES</h4>
                 <ul>
-                    <li>Guía de Tallas</li>
-                    <li>Cuidado de la Lana</li>
-                    <li>Envíos y Entregas</li>
+                    <li><a href="#">Guía de tallas</a></li>
+                    <li><a href="#">Cuidado de prendas</a></li>
+                    <li><a href="#">Envíos</a></li>
                 </ul>
             </div>
-            <div class="footer-col">
+            <div class="footer-contact">
                 <h4>CONTACTO</h4>
-                <p>📍 Tarija, Bolivia</p>
+                <p>📍 Barrio San Martín, Tarija</p>
                 <p>📱 +591 XXXXXXXX</p>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 TommyStyle - Todos los derechos reservados.</p>
+            <p>© 2026 TommyStyle. Diseñado para el confort de tu bebé.</p>
         </div>
     </footer>
 
     <div id="cart-sidebar" class="cart-sidebar">
         <div class="cart-header">
             <h3>BOLSA DE COMPRAS</h3>
-            <span class="close-cart" onclick="toggleCart()">&times;</span>
+            <span class="close-cart" onclick="toggleCart()">×</span>
         </div>
-        <div id="cart-items" class="cart-items"></div>
+        <div id="cart-items" class="cart-items-body"></div>
         <div class="cart-footer">
-            <div class="total-row">
-                <span>Total Estimado:</span>
-                <span id="cart-total">Bs. 0</span>
+            <div class="total-box">
+                <span>Total:</span>
+                <span id="cart-total">Bs 0</span>
             </div>
-            <button class="btn-checkout" onclick="checkout()">FINALIZAR POR WHATSAPP</button>
+            <button class="btn-checkout" onclick="finalizarCompra()">ORDENAR POR WHATSAPP</button>
         </div>
     </div>
 
